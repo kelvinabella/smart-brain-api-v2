@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/postgres");
+const db = require("../db/postgres/postgres");
 const { retrieveSession } = require("../authorization/authorization");
 
 router.get("/:id", async (req, res, next) => {

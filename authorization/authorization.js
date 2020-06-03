@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const redisClient = require("../db/redis");
+const redisClient = require("../db/redis/redis");
 
 const createToken = (userName) => {
   const jwtPayload = { userName };
@@ -11,6 +11,19 @@ const createSession = (user) => {
   const token = createToken(email);
   redisClient.set(token, id);
   return token;
+};
+
+const removeSession = (token) => {
+  if (!token) {
+    return { error: "Unauthorized" };
+  }
+
+  return new Promise((resolve, reject) => {
+    redisClient.del(token.replace("Bearer ", ""), (err, reply) => {
+      if (err || !reply) resolve({ error: "Unauthorized" });
+      resolve({ message: "Success" });
+    });
+  });
 };
 
 const retrieveSession = (token) => {
@@ -29,4 +42,5 @@ const retrieveSession = (token) => {
 module.exports = {
   createSession,
   retrieveSession,
+  removeSession,
 };

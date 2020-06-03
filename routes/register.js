@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const db = require("../db/postgres");
+const bcrypt = require("bcryptjs");
+const db = require("../db/postgres/postgres");
 const { createSession } = require("../authorization/authorization");
 
 /* Register user. */

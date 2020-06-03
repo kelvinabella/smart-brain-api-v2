@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Clarifai = require("clarifai");
-const db = require("../db/postgres");
+const db = require("../db/postgres/postgres");
 const { retrieveSession } = require("../authorization/authorization");
 
 router.post("/clarifai", async (req, res, next) => {

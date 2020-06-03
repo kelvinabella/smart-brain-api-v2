@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const bcrpyt = require("bcrypt");
-const db = require("../db/postgres");
+const bcrpyt = require("bcryptjs");
+const db = require("../db/postgres/postgres");
 const {
   retrieveSession,
   createSession,
