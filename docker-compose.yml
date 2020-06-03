@@ -1,0 +1,34 @@
+version: "3.6"
+services:
+  # PostgreSQL
+  postgres:
+    container_name: postgres
+    build: ./db/postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: smart-brain
+      POSTGRES_HOST: postgres
+    ports:
+      - "5432:5432"
+
+  # Redis
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+
+  # Backend
+  smart-brain-enhanced-api:
+    container_name: backend
+    build: ./
+    volumes:
+      - ./:/usr/src/smart-brain-enhanced-api
+    command: npm start
+    working_dir: /usr/src/smart-brain-enhanced-api
+    ports:
+      - "3000:3000"
+    environment:
+      PG_CONNECTION_STRING: postgres://admin:password@postgres:5432/smart-brain
+      REDIS_URI: redis://redis:6379
